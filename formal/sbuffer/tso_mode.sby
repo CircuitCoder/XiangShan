@@ -1,0 +1,16 @@
+[options]
+mode prove
+depth 2
+
+[engines]
+smtbmc z3
+
+[script]
+read_rtlil tso_mode.il
+read_verilog -formal -sv tso_mode.sv
+prep -top tso_mode_check
+check -assert
+
+[files]
+formal/sbuffer/work/eqy/tso_mode.il
+formal/sbuffer/tso_mode.sv

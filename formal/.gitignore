@@ -1,0 +1,13 @@
+# Regenerated RTL, interface reports, and elaboration metadata.
+artifacts/
+
+# Proof runs, solver traces, generated wrappers, and toolchain smoke checks.
+work/
+
+# Python caches.
+__pycache__/
+*.py[cod]
+
+# Default Nix build output links.
+result
+result-*

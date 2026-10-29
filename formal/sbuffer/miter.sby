@@ -1,0 +1,26 @@
+[tasks]
+bmc
+prove
+cover
+
+[options]
+bmc: mode bmc
+prove: mode prove
+cover: mode cover
+depth 32
+
+[engines]
+smtbmc z3
+
+[script]
+read_rtlil base.il
+read_rtlil tip.il
+read_verilog -formal -sv miter.sv
+prep -top miter
+check -assert
+select -assert-none A:blackbox
+
+[files]
+formal/sbuffer/artifacts/DefaultConfig/Sbuffer/base.il
+formal/sbuffer/artifacts/DefaultConfig/Sbuffer/tip.il
+formal/sbuffer/artifacts/DefaultConfig/Sbuffer/miter.sv

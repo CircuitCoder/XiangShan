@@ -1,0 +1,17 @@
+# Run from the repository root, after `python3 formal/sbuffer/prepare_eqy.py mode`.
+read_rtlil formal/sbuffer/artifacts/DefaultConfig/Sbuffer/tip.il
+cd Sbuffer_tip
+connect -set io_csrCtrl_tso_enable 1'0
+# Replace all validity bits by arbitrary values. This enlarges the behavior set;
+# it removes the data path without assuming that the buffer is empty.
+cutpoint w:validMask
+delete -port w:*
+expose w:tsoActive w:tsoTransitioning
+expose -input w:clock w:reset
+select -clear
+opt_clean -purge
+rename -top tso_mode
+select -clear
+check -assert
+stat
+write_rtlil formal/sbuffer/work/eqy/tso_mode.il
